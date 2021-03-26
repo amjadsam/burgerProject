@@ -1,7 +1,8 @@
 import React from "react";
 import "./BuildControls.css";
 import BuildControl from "./BuildControl/BuildControl";
-export default function BuildControls()
+import { checkPropTypes } from "prop-types";
+export default function BuildControls(props)
 {
     const controls=[
         {label:"Salad",type:"salad"},
@@ -11,7 +12,10 @@ export default function BuildControls()
     ];
     return(
         <div className="BuildControls">
-         {controls.map((el)=><BuildControl label={el.label} key={el.type}/>)}
+            <b>Current Price:{props.price.toFixed(2)}</b>
+         {controls.map((el)=><BuildControl  ingredientHandler={props.ingredientAdded}
+         ingredientHandlerRemover={props.ingredientRemoved} type={el.type} label={el.label} key={el.type}/>)}
+        <button className="OrderButton"  disabled={!props.purchasable}>ORDER NOW</button>
         </div>
     );
 }
